@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Online Exam System</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="CSS/AdminDashboard.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <div class="brand-box">
+        <div class="brand-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <div>
+            <h5 class="brand-title">Exam<span>Pro</span></h5>
+            <span class="brand-subtitle">Admin Workspace</span>
+        </div>
+    </div>
+
+    <div class="nav-section-label">MAIN MENU</div>
+
+    <a href="javascript:void(0)" class="nav-link-item active" id="nav-dashboard" onclick="showDashboardOverview(this)">
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard Overview</span>
+    </a>
+
+    <!-- STUDENTS -->
+    <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleSubmenu(this)">
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-people-fill"></i>
+                <span>Students</span>
+            </span>
+            <i class="bi bi-chevron-down arrow-icon"></i>
+        </button>
+        <div class="submenu">
+            <a href="Registration.html" target="contentFrame" onclick="openInWorkspace(this, 'Add New Student', 'Students / Add Student')">
+                <i class="bi bi-person-plus"></i> Add Student
+            </a>
+            <a href="viewStudents" target="contentFrame" onclick="openInWorkspace(this, 'Manage Students', 'Students / View Students')">
+                <i class="bi bi-person-lines-fill"></i> View Students
+            </a>
+        </div>
+    </div>
+
+    <!-- SUBJECTS -->
+    <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleSubmenu(this)">
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-book-half"></i>
+                <span>Subjects</span>
+            </span>
+            <i class="bi bi-chevron-down arrow-icon"></i>
+        </button>
+        <div class="submenu">
+            <a href="addSubject" target="contentFrame" onclick="openInWorkspace(this, 'Add Subject', 'Subjects / Add Subject')">
+                <i class="bi bi-plus-circle"></i> Add Subject
+            </a>
+            <a href="viewSubject" target="contentFrame" onclick="openInWorkspace(this, 'All Subjects', 'Subjects / View Subjects')">
+                <i class="bi bi-collection"></i> View Subjects
+            </a>
+        </div>
+    </div>
+
+    <!-- EXAMS -->
+    <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleSubmenu(this)">
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-journal-code"></i>
+                <span>Exams</span>
+            </span>
+            <i class="bi bi-chevron-down arrow-icon"></i>
+        </button>
+        <div class="submenu">
+            <a href="addExam.html" target="contentFrame" onclick="openInWorkspace(this, 'Create Exam', 'Exams / Add Exam')">
+                <i class="bi bi-file-earmark-plus"></i> Add Exam
+            </a>
+            <a href="viewExam" target="contentFrame" onclick="openInWorkspace(this, 'Manage Exams', 'Exams / View Exams')">
+                <i class="bi bi-journal-check"></i> View Exams
+            </a>
+        </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleSubmenu(this)">
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-patch-question-fill"></i>
+                <span>Questions</span>
+            </span>
+            <i class="bi bi-chevron-down arrow-icon"></i>
+        </button>
+        <div class="submenu">
+            <a href="addQuestion.html" target="contentFrame" onclick="openInWorkspace(this, 'Add Question', 'Questions / Add Question')">
+                <i class="bi bi-plus-square"></i> Add Question
+            </a>
+            <a href="viewQuestions" target="contentFrame" onclick="openInWorkspace(this, 'Question Bank', 'Questions / View Questions')">
+                <i class="bi bi-list-check"></i> View Questions
+            </a>
+        </div>
+    </div>
+
+    <div class="nav-section-label mt-3">ANALYTICS & ACCOUNT</div>
+
+    <!-- RESULTS -->
+    <a href="viewResults" target="contentFrame" class="nav-link-item" onclick="openInWorkspace(this, 'Student Exam Results', 'Analytics / Results')">
+        <i class="bi bi-bar-chart-line-fill"></i>
+        <span>Exam Results</span>
+    </a>
+
+    <!-- LOGOUT -->
+    <div class="sidebar-footer">
+        <a href="Home.html" class="logout-btn">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Sign Out</span>
+        </a>
+    </div>
+</aside>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main">
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div>
+            <span class="breadcrumb-text" id="pageBreadcrumb">Workspace / Overview</span>
+            <h4 class="page-heading" id="pageTitle">Dashboard Overview</h4>
+        </div>
+
+        <div class="topbar-actions">
+            <div class="status-pill">
+                <span class="status-dot"></span> System Online
+            </div>
+            <div class="admin-profile-badge">
+                <div class="avatar-circle">A</div>
+                <div class="d-none d-sm-block">
+                    <div class="admin-name">Administrator</div>
+                    <div class="admin-role">Super Admin</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD OVERVIEW (Default Same-Page View) -->
+    <div id="overviewSection" class="overview-container">
+        <!-- HERO BANNER -->
+        <div class="welcome-banner">
+            <div class="welcome-text">
+                <span class="badge-tag"><i class="bi bi-stars me-1"></i> Admin Control Center</span>
+                <h2>Welcome back, Administrator!</h2>
+                <p>Manage students, subjects, exams, question banks, and real-time student results seamlessly from a single unified workspace.</p>
+            </div>
+            <div class="welcome-QuickBtn">
+                <a href="addExam.html" target="contentFrame" class="btn-CreateExam" onclick="openQuickLink('addExam.html', 'Create Exam', 'Exams / Add Exam')">
+                    <i class="bi bi-plus-lg me-1"></i> Create New Exam
+                </a>
+            </div>
+        </div>
+
+        <!-- QUICK MODULE CARDS -->
+        <div class="section-header-row">
+            <h5><i class="bi bi-lightning-charge-fill text-primary me-2"></i>Quick Management Modules</h5>
+            <span class="text-muted small">Click any module to open directly in this workspace</span>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6">
+                <div class="module-card" onclick="openQuickLink('viewStudents', 'Manage Students', 'Students / View Students')">
+                    <div class="module-icon bg-soft-blue">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="module-info">
+                        <h6>Student Directory</h6>
+                        <p>View, update, or remove registered students.</p>
+                        <span class="module-link">Open Directory <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="module-card" onclick="openQuickLink('Registration.html', 'Add New Student', 'Students / Add Student')">
+                    <div class="module-icon bg-soft-teal">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+                    <div class="module-info">
+                        <h6>Register Student</h6>
+                        <p>Enroll a new student account into the portal.</p>
+                        <span class="module-link">Add Student <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="module-card" onclick="openQuickLink('viewSubject', 'All Subjects', 'Subjects / View Subjects')">
+                    <div class="module-icon bg-soft-purple">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <div class="module-info">
+                        <h6>Subject Catalog</h6>
+                        <p>Organize course subjects and topic categories.</p>
+                        <span class="module-link">Manage Subjects <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="module-card" onclick="openQuickLink('viewExam', 'Manage Exams', 'Exams / View Exams')">
+                    <div class="module-icon bg-soft-amber">
+                        <i class="bi bi-journal-bookmark-fill"></i>
+                    </div>
+                    <div class="module-info">
+                        <h6>Examination Center</h6>
+                        <p>Configure exam schedules, marks & duration.</p>
+                        <span class="module-link">View Exams <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="module-card" onclick="openQuickLink('viewQuestions', 'Question Bank', 'Questions / View Questions')">
+                    <div class="module-icon bg-soft-rose">
+                        <i class="bi bi-patch-question-fill"></i>
+                    </div>
+                    <div class="module-info">
+                        <h6>Question Bank</h6>
+                        <p>Create & manage multiple-choice questions.</p>
+                        <span class="module-link">Open Questions <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="module-card" onclick="openQuickLink('viewResults', 'Student Exam Results', 'Analytics / Results')">
+                    <div class="module-icon bg-soft-emerald">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <div class="module-info">
+                        <h6>Results & Reports</h6>
+                        <p>Track student scores, percentages & pass/fail status.</p>
+                        <span class="module-link">View Results <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DYNAMIC CONTENT WORKSPACE (Same-Page Frame) -->
+    <div id="workspaceSection" class="content-area d-none">
+        <div class="workspace-toolbar">
+            <button class="btn-back-overview" onclick="showDashboardOverview(document.getElementById('nav-dashboard'))">
+                <i class="bi bi-arrow-left"></i> Back to Overview
+            </button>
+            <button class="btn-refresh-frame" onclick="refreshWorkspace()" title="Refresh current view">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+            </button>
+        </div>
+        <iframe name="contentFrame" id="contentFrame" src="about:blank"></iframe>
+    </div>
+</div>
+
+<script>
+function toggleSubmenu(btn) {
+    const group = btn.parentElement;
+    const isOpen = group.classList.contains('open');
+    document.querySelectorAll('.menu-group').forEach(g => g.classList.remove('open'));
+    if (!isOpen) {
+        group.classList.add('open');
+    }
+}
+
+function clearActiveLinks() {
+    document.querySelectorAll('.sidebar a, .menu-toggle').forEach(el => el.classList.remove('active'));
+}
+
+function openInWorkspace(linkEl, title, breadcrumb) {
+    clearActiveLinks();
+    linkEl.classList.add('active');
+    const parentGroup = linkEl.closest('.menu-group');
+    if (parentGroup) {
+        parentGroup.classList.add('open');
+        const toggleBtn = parentGroup.querySelector('.menu-toggle');
+        if (toggleBtn) toggleBtn.classList.add('active');
+    }
+
+    document.getElementById('pageTitle').textContent = title;
+    document.getElementById('pageBreadcrumb').textContent = breadcrumb;
+    document.getElementById('overviewSection').classList.add('d-none');
+    document.getElementById('workspaceSection').classList.remove('d-none');
+}
+
+function openQuickLink(url, title, breadcrumb) {
+    const frame = document.getElementById('contentFrame');
+    frame.src = url;
+    clearActiveLinks();
+    document.querySelectorAll('.sidebar a').forEach(a => {
+        if (a.getAttribute('href') === url) {
+            a.classList.add('active');
+            const group = a.closest('.menu-group');
+            if (group) {
+                group.classList.add('open');
+                const btn = group.querySelector('.menu-toggle');
+                if (btn) btn.classList.add('active');
+            }
+        }
+    });
+    document.getElementById('pageTitle').textContent = title;
+    document.getElementById('pageBreadcrumb').textContent = breadcrumb;
+    document.getElementById('overviewSection').classList.add('d-none');
+    document.getElementById('workspaceSection').classList.remove('d-none');
+}
+
+function showDashboardOverview(el) {
+    clearActiveLinks();
+    if (el) el.classList.add('active');
+    document.getElementById('pageTitle').textContent = 'Dashboard Overview';
+    document.getElementById('pageBreadcrumb').textContent = 'Workspace / Overview';
+    document.getElementById('workspaceSection').classList.add('d-none');
+    document.getElementById('overviewSection').classList.remove('d-none');
+}
+
+function refreshWorkspace() {
+    const frame = document.getElementById('contentFrame');
+    if (frame && frame.contentWindow) {
+        frame.contentWindow.location.reload();
+    }
+}
+</script>
+
+</body>
+</html>

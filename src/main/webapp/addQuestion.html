@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Question</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+body {
+    background: #f8fafc;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 24px;
+    color: #0f172a;
+}
+.card-box {
+    max-width: 680px;
+    margin: 10px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+.card-header-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+.header-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #fff1f2;
+    color: #e11d48;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+label {
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #334155;
+    margin-bottom: 5px;
+}
+.form-control {
+    border-radius: 10px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+.form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+.btn-submit {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+.btn-submit:hover {
+    opacity: 0.95;
+    color: #fff;
+}
+</style>
+</head>
+<body>
+
+<div class="card-box">
+    <div class="card-header-box">
+        <div class="header-icon"><i class="bi bi-patch-question-fill"></i></div>
+        <div>
+            <h4 class="fw-bold m-0">Add Multiple-Choice Question</h4>
+            <span class="text-muted small">Add a new question to an existing exam</span>
+        </div>
+    </div>
+
+    <div id="alertBox"></div>
+
+    <form action="addQuestion" method="post">
+        <div class="mb-3">
+            <label>Exam ID</label>
+            <input type="number" name="examId" class="form-control" placeholder="Enter target Exam ID" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Question Statement</label>
+            <textarea name="questionText" rows="2" class="form-control" placeholder="Type the question clearly..." required></textarea>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+                <label>Option A</label>
+                <input type="text" name="option1" class="form-control" placeholder="First option" required>
+            </div>
+            <div class="col-sm-6">
+                <label>Option B</label>
+                <input type="text" name="option2" class="form-control" placeholder="Second option" required>
+            </div>
+            <div class="col-sm-6">
+                <label>Option C</label>
+                <input type="text" name="option3" class="form-control" placeholder="Third option" required>
+            </div>
+            <div class="col-sm-6">
+                <label>Option D</label>
+                <input type="text" name="option4" class="form-control" placeholder="Fourth option" required>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="text-success"><i class="bi bi-check2-circle me-1"></i>Correct Answer (Exact Option Text)</label>
+            <input type="text" name="correctAnswer" class="form-control" placeholder="Paste the exact text of the correct option" required>
+        </div>
+
+        <button type="submit" class="btn-submit">
+            <i class="bi bi-plus-circle me-1"></i> Save Question to Bank
+        </button>
+    </form>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+if (params.get('msg') === 'success') {
+    document.getElementById('alertBox').innerHTML = '<div class="alert alert-success py-2 small fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Question added successfully!</div>';
+} else if (params.get('msg') === 'fail' || params.get('msg') === 'error') {
+    document.getElementById('alertBox').innerHTML = '<div class="alert alert-danger py-2 small fw-semibold"><i class="bi bi-exclamation-triangle-fill me-1"></i> Could not add question. Verify Exam ID exists.</div>';
+}
+</script>
+</body>
+</html>
