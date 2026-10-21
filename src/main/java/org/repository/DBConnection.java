@@ -22,14 +22,18 @@ public class DBConnection {
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			String url = System.getenv("DB_URL") != null
-					? System.getenv("DB_URL")
+			String envUrl = System.getenv("DB_URL");
+			String envUser = System.getenv("DB_USER");
+			String envPass = System.getenv("DB_PASSWORD");
+
+			String url = (envUrl != null && !envUrl.trim().isEmpty())
+					? envUrl.trim()
 					: "jdbc:mysql://localhost:3306/online_exam_db";
-			String user = System.getenv("DB_USER") != null
-					? System.getenv("DB_USER")
+			String user = (envUser != null && !envUser.trim().isEmpty())
+					? envUser.trim()
 					: "root";
-			String pass = System.getenv("DB_PASSWORD") != null
-					? System.getenv("DB_PASSWORD")
+			String pass = (envPass != null && !envPass.trim().isEmpty())
+					? envPass.trim()
 					: "MySql_Sid@20";
 
 			conn = DriverManager.getConnection(url, user, pass);
