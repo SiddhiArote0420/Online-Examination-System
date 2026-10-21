@@ -25,6 +25,7 @@ body {
 }
 .card-header-box {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 14px;
     margin-bottom: 24px;
@@ -35,8 +36,8 @@ body {
     width: 46px;
     height: 46px;
     border-radius: 12px;
-    background: #f0fdfa;
-    color: #0d9488;
+    background: #eff6ff;
+    color: #2563eb;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,11 +56,11 @@ body {
     font-size: 14px;
 }
 .form-control:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 .btn-submit {
-    background: linear-gradient(135deg, #4f46e5, #2563eb);
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: #ffffff;
     border: none;
     padding: 12px 20px;
@@ -78,11 +79,16 @@ body {
 
 <div class="reg-card">
     <div class="card-header-box">
-        <div class="header-icon"><i class="bi bi-person-plus-fill"></i></div>
-        <div>
-            <h4 class="fw-bold m-0">Register New Student</h4>
-            <span class="text-muted small">Fill in student details below to create an account</span>
+        <div class="d-flex align-items-center gap-3">
+            <div class="header-icon"><i class="bi bi-person-plus-fill"></i></div>
+            <div>
+                <h4 class="fw-bold m-0">Add New Student</h4>
+                <span class="text-muted small">Fill in student details below to create an account</span>
+            </div>
         </div>
+        <a href="viewStudents" class="btn btn-outline-secondary btn-sm fw-semibold">
+            <i class="bi bi-arrow-left me-1"></i> Back
+        </a>
     </div>
 
     <div id="alertBox"></div>
@@ -116,7 +122,7 @@ body {
         </div>
 
         <button class="btn-submit" type="submit">
-            <i class="bi bi-check2-circle me-1"></i> Create Student Account
+            <i class="bi bi-check2-circle me-1"></i> Save Student
         </button>
     </form>
 </div>
@@ -124,7 +130,7 @@ body {
 <script>
 const params = new URLSearchParams(window.location.search);
 if (params.get('msg') === 'Success') {
-    document.getElementById('alertBox').innerHTML = '<div class="alert alert-success py-2 small fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Student registered successfully!</div>';
+    document.getElementById('alertBox').innerHTML = '<div class="alert alert-success py-2 small fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Student added successfully! <a href="viewStudents" class="ms-2 fw-bold">View List</a></div>';
 } else if (params.get('msg') === 'Failed') {
     document.getElementById('alertBox').innerHTML = '<div class="alert alert-danger py-2 small fw-semibold"><i class="bi bi-exclamation-triangle-fill me-1"></i> Registration failed. Email may already exist.</div>';
 }

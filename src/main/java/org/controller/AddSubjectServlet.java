@@ -26,15 +26,18 @@ public class AddSubjectServlet extends HttpServlet {
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'>");
         out.println("<style>");
         out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:30px;}");
-        out.println(".box{max-width:480px;margin:30px auto;background:white;padding:32px;border-radius:18px;border:1px solid #e2e8f0;box-shadow:0 10px 30px rgba(15,23,42,0.05);}");
-        out.println(".btn-sub{background:linear-gradient(135deg,#4f46e5,#3b82f6);color:#fff;border:none;font-weight:700;padding:11px;border-radius:10px;}");
+        out.println(".box{max-width:520px;margin:20px auto;background:white;padding:32px;border-radius:18px;border:1px solid #e2e8f0;box-shadow:0 10px 30px rgba(15,23,42,0.05);}");
+        out.println(".btn-sub{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;font-weight:700;padding:11px;border-radius:10px;}");
         out.println(".btn-sub:hover{opacity:0.95;color:#fff;}");
         out.println("</style></head><body>");
 
         out.println("<div class='box'>");
-        out.println("  <div class='d-flex align-items-center gap-3 mb-4 pb-3 border-bottom'>");
-        out.println("    <div style='width:44px;height:44px;border-radius:12px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:20px;'><i class='bi bi-book-half'></i></div>");
-        out.println("    <div><h4 class='fw-bold m-0'>Add New Subject</h4><span class='text-muted small'>Create a subject category for exams</span></div>");
+        out.println("  <div class='d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom'>");
+        out.println("    <div class='d-flex align-items-center gap-3'>");
+        out.println("      <div style='width:44px;height:44px;border-radius:12px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:20px;'><i class='bi bi-book-half'></i></div>");
+        out.println("      <div><h4 class='fw-bold m-0'>Add Subject</h4><span class='text-muted small'>Create a subject category</span></div>");
+        out.println("    </div>");
+        out.println("    <a href='viewSubject' class='btn btn-outline-secondary btn-sm fw-semibold'><i class='bi bi-arrow-left me-1'></i>Back</a>");
         out.println("  </div>");
 
         if ("success".equals(msg)) {
@@ -61,7 +64,7 @@ public class AddSubjectServlet extends HttpServlet {
         boolean status = service.addSubject(model);
 
         if (status) {
-            response.sendRedirect("addSubject?msg=success");
+            response.sendRedirect("viewSubject");
         } else {
             response.sendRedirect("addSubject?msg=failed");
         }

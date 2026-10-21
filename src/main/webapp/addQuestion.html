@@ -25,6 +25,7 @@ body {
 }
 .card-header-box {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 14px;
     margin-bottom: 22px;
@@ -35,8 +36,8 @@ body {
     width: 46px;
     height: 46px;
     border-radius: 12px;
-    background: #fff1f2;
-    color: #e11d48;
+    background: #eff6ff;
+    color: #2563eb;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,11 +56,11 @@ label {
     font-size: 14px;
 }
 .form-control:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 .btn-submit {
-    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: #fff;
     border: none;
     padding: 12px 20px;
@@ -78,11 +79,16 @@ label {
 
 <div class="card-box">
     <div class="card-header-box">
-        <div class="header-icon"><i class="bi bi-patch-question-fill"></i></div>
-        <div>
-            <h4 class="fw-bold m-0">Add Multiple-Choice Question</h4>
-            <span class="text-muted small">Add a new question to an existing exam</span>
+        <div class="d-flex align-items-center gap-3">
+            <div class="header-icon"><i class="bi bi-patch-question-fill"></i></div>
+            <div>
+                <h4 class="fw-bold m-0">Add Question</h4>
+                <span class="text-muted small">Add a new MCQ question to an exam</span>
+            </div>
         </div>
+        <a href="viewQuestions" class="btn btn-outline-secondary btn-sm fw-semibold">
+            <i class="bi bi-arrow-left me-1"></i> Back
+        </a>
     </div>
 
     <div id="alertBox"></div>
@@ -100,30 +106,30 @@ label {
 
         <div class="row g-3 mb-3">
             <div class="col-sm-6">
-                <label>Option A</label>
+                <label>Option 1</label>
                 <input type="text" name="option1" class="form-control" placeholder="First option" required>
             </div>
             <div class="col-sm-6">
-                <label>Option B</label>
+                <label>Option 2</label>
                 <input type="text" name="option2" class="form-control" placeholder="Second option" required>
             </div>
             <div class="col-sm-6">
-                <label>Option C</label>
+                <label>Option 3</label>
                 <input type="text" name="option3" class="form-control" placeholder="Third option" required>
             </div>
             <div class="col-sm-6">
-                <label>Option D</label>
+                <label>Option 4</label>
                 <input type="text" name="option4" class="form-control" placeholder="Fourth option" required>
             </div>
         </div>
 
         <div class="mb-4">
-            <label class="text-success"><i class="bi bi-check2-circle me-1"></i>Correct Answer (Exact Option Text)</label>
+            <label class="text-primary"><i class="bi bi-check2-circle me-1"></i>Correct Answer (Exact Option Text)</label>
             <input type="text" name="correctAnswer" class="form-control" placeholder="Paste the exact text of the correct option" required>
         </div>
 
         <button type="submit" class="btn-submit">
-            <i class="bi bi-plus-circle me-1"></i> Save Question to Bank
+            <i class="bi bi-plus-circle me-1"></i> Save Question
         </button>
     </form>
 </div>
@@ -131,7 +137,7 @@ label {
 <script>
 const params = new URLSearchParams(window.location.search);
 if (params.get('msg') === 'success') {
-    document.getElementById('alertBox').innerHTML = '<div class="alert alert-success py-2 small fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Question added successfully!</div>';
+    document.getElementById('alertBox').innerHTML = '<div class="alert alert-success py-2 small fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Question added successfully! <a href="viewQuestions" class="ms-2 fw-bold">View List</a></div>';
 } else if (params.get('msg') === 'fail' || params.get('msg') === 'error') {
     document.getElementById('alertBox').innerHTML = '<div class="alert alert-danger py-2 small fw-semibold"><i class="bi bi-exclamation-triangle-fill me-1"></i> Could not add question. Verify Exam ID exists.</div>';
 }
