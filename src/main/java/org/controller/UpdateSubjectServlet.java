@@ -21,7 +21,7 @@ public class UpdateSubjectServlet extends HttpServlet {
 		SubjectRepository repo = new SubjectRepository();
 		SubjectModel s = repo.getSubjectById(id);
 
-		response.setContentType("text/html");
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
 		out.println("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Update Subject</title>");
@@ -47,26 +47,28 @@ public class UpdateSubjectServlet extends HttpServlet {
 		out.println("  </div>");
 
 		out.println("<form action='updateSubject' method='post'>");
-		out.println("<input type='hidden' name='id' value='"+s.getSubjectId()+"'>");
+		out.println("<input type='hidden' name='id' value='" + s.getSubjectId() + "'>");
 		out.println("<label class='form-label fw-semibold small'>Subject Name</label>");
-		out.println("<input class='form-control mb-3 py-2' name='subjectName' value='"+s.getSubjectName()+"' required>");
+		out.println("<input class='form-control mb-3 py-2' name='subjectName' value='" + s.getSubjectName() + "' required>");
 		out.println("<button class='btn btn-upd w-100'><i class='bi bi-check2-circle me-1'></i> Update Subject</button>");
 		out.println("</form>");
 
 		out.println("</div>");
 		out.println("</body></html>");
-		}
+	}
 
-
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("subjectName");
 
 		SubjectRepository repo = new SubjectRepository();
-		repo.updateSubject(id, name);
+		boolean status = repo.updateSubject(id, name);
 
-		response.sendRedirect("viewSubject");
+		if (status) {
+			response.sendRedirect("viewSubject?msg=updated");
+		} else {
+			response.sendRedirect("viewSubject?msg=update_error");
 		}
+	}
 
 }

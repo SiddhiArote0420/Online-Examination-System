@@ -153,6 +153,16 @@ public class ExamRepository extends DBConnection {
     public boolean deleteExam(int id) {
 
         try {
+            try (PreparedStatement ps1 = conn.prepareStatement("DELETE FROM result WHERE exam_id=?")) {
+                ps1.setInt(1, id);
+                ps1.executeUpdate();
+            }
+
+            try (PreparedStatement ps2 = conn.prepareStatement("DELETE FROM questions WHERE exam_id=?")) {
+                ps2.setInt(1, id);
+                ps2.executeUpdate();
+            }
+
             stmt = conn.prepareStatement("DELETE FROM exam WHERE exam_id=?");
             stmt.setInt(1, id);
 
@@ -360,7 +370,4 @@ public class ExamRepository extends DBConnection {
 
         return list;
     }
-    
-    
-       
-    }
+}

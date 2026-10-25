@@ -13,6 +13,7 @@ import org.repository.ExamRepository;
 @WebServlet("/deleteExam")
 public class DeleteExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -21,15 +22,14 @@ public class DeleteExamController extends HttpServlet {
 		boolean status = repo.deleteExam(id);
 
 		if (status) {
-			response.sendRedirect("viewExam");
+			response.sendRedirect("viewExam?msg=deleted");
 		} else {
-			response.getWriter().println("<h3>Delete Failed</h3>");
+			response.sendRedirect("viewExam?msg=delete_error");
 		}
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

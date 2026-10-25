@@ -1,5 +1,6 @@
 package org.repository;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import org.model.SubjectModel;
@@ -45,7 +46,7 @@ public class SubjectRepository extends DBConnection {
 		}
 
 		return list;
-		}
+	}
 	
 	/* ---------upadate------------*/
 	public SubjectModel getSubjectById(int id) {
@@ -68,7 +69,7 @@ public class SubjectRepository extends DBConnection {
 		}
 
 		return s;
-		}
+	}
 	
 	
 	
@@ -89,12 +90,27 @@ public class SubjectRepository extends DBConnection {
 		}
 
 		return false;
-		}
+	}
 	
 	/*-----delete--------*/
 	public boolean deleteSubject(int id) {
 
 		try {
+		try (PreparedStatement ps1 = conn.prepareStatement(
+				"delete from result where exam_id in (select exam_id from exam where subject_id=?)")) {
+			ps1.setInt(1, id);
+			ps1.executeUpdate();
+		}
+		try (PreparedStatement ps2 = conn.prepareStatement(
+				"delete from questions where exam_id in (select exam_id from exam where subject_id=?)")) {
+			ps2.setInt(1, id);
+			ps2.executeUpdate();
+		}
+		try (PreparedStatement ps3 = conn.prepareStatement(
+				"delete from exam where subject_id=?")) {
+			ps3.setInt(1, id);
+			ps3.executeUpdate();
+		}
 		stmt = conn.prepareStatement(
 		"delete from subject where subject_id=?"
 		);
@@ -108,5 +124,5 @@ public class SubjectRepository extends DBConnection {
 		}
 
 		return false;
-		}
+	}
 }

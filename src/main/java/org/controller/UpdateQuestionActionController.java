@@ -15,16 +15,12 @@ import org.service.QuestionService;
 public class UpdateQuestionActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-
             QuestionModel model = new QuestionModel();
 
             model.setQuestionId(Integer.parseInt(request.getParameter("questionId")));
@@ -42,16 +38,15 @@ public class UpdateQuestionActionController extends HttpServlet {
             boolean result = service.updateQuestion(model);
 
             if (result) {
-                response.sendRedirect("viewQuestions");
+                response.sendRedirect("viewQuestions?msg=updated");
             } else {
-                response.getWriter().println("Update Failed");
+                response.sendRedirect("viewQuestions?msg=update_error");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("Error in Update");
+            response.sendRedirect("viewQuestions?msg=update_error");
         }
     }
-
 
 }

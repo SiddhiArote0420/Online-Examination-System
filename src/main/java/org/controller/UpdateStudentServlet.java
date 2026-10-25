@@ -10,87 +10,11 @@ import java.io.IOException;
 import org.model.StudentModel;
 import org.service.StudentService;
 
-
-/*@WebServlet("/updateStudent")
-public class UpdateStudentServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id =
-				Integer.parseInt(request.getParameter("id"));
-
-				StudentService service =
-						new StudentService();
-
-				StudentModel s =
-				service.getStudentById(id);
-
-				response.setContentType("text/html");
-
-				response.getWriter().println(
-				getForm(s)
-				);
-				}
-
-				/* SHOW FORM */
-				/*private String getForm(StudentModel s) {
-
-				return "<html><body>" +
-				"<h2>Update Student</h2>" +
-				"<form method='post' action='updateStudent'>" +
-
-				"<input type='hidden' name='id' value='" + s.getStudentId() + "'/>" +
-
-				"Name: <input name='name' value='" + s.getStudentName() + "'/><br><br>" +
-				"Email: <input name='email' value='" + s.getEmail() + "'/><br><br>" +
-				"Course: <input name='course' value='" + s.getCourse() + "'/><br><br>" +
-				"Mobile: <input name='mobile' value='" + s.getMobile() + "'/><br><br>" +
-
-				"<button type='submit'>Update</button>" +
-				"</form></body></html>";
-				}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id =
-				Integer.parseInt(request.getParameter("id"));
-
-				String name =
-				request.getParameter("name");
-
-				String email =
-				request.getParameter("email");
-
-				String course =
-				request.getParameter("course");
-
-				String mobile =
-				request.getParameter("mobile");
-
-				StudentService service =
-				new StudentService();
-
-				boolean status =
-				service.updateStudent(id, name, email, course, mobile);
-
-				if(status) {
-				response.sendRedirect("viewStudents");
-				} else {
-				response.getWriter().println("Update Failed");
-				}
-				}
-
-
-}*/
-
-
 @WebServlet("/updateStudent")
 public class UpdateStudentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	
-	
 	// =========================
 	// SHOW UPDATE FORM
 	// =========================
@@ -98,28 +22,17 @@ public class UpdateStudentServlet extends HttpServlet {
 	protected void doGet(
 	HttpServletRequest request,
 	HttpServletResponse response)
-
 	throws ServletException, IOException {
 
-		int id =
-		Integer.parseInt(
-		request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id"));
 
-		StudentService service =
-		new StudentService();
+		StudentService service = new StudentService();
+		StudentModel s = service.getStudentById(id);
 
-		StudentModel s =
-		service.getStudentById(id);
-
-		response.setContentType(
-		"text/html");
-
-		response.getWriter().println(
-		getForm(s));
+		response.setContentType("text/html;charset=UTF-8");
+		response.getWriter().println(getForm(s));
 	}
 
-	
-	
 	// =========================
 	// UPDATE STUDENT
 	// =========================
@@ -127,56 +40,29 @@ public class UpdateStudentServlet extends HttpServlet {
 	protected void doPost(
 	HttpServletRequest request,
 	HttpServletResponse response)
-
 	throws ServletException, IOException {
 
-		int id =
-		Integer.parseInt(
-		request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String course = request.getParameter("course");
+		String mobile = request.getParameter("mobile");
 
-		String name =
-		request.getParameter("name");
+		StudentService service = new StudentService();
+		boolean status = service.updateStudent(id, name, email, course, mobile);
 
-		String email =
-		request.getParameter("email");
-
-		String course =
-		request.getParameter("course");
-
-		String mobile =
-		request.getParameter("mobile");
-
-		StudentService service =
-		new StudentService();
-
-		boolean status =
-		service.updateStudent(
-		id,
-		name,
-		email,
-		course,
-		mobile);
-
-		if(status) {
-
-			response.sendRedirect(
-			"viewStudents");
-
+		if (status) {
+			response.sendRedirect("viewStudents?msg=updated");
 		} else {
-
-			response.getWriter().println(
-			"<h2 style='color:red;text-align:center;'>Update Failed</h2>");
+			response.sendRedirect("viewStudents?msg=update_error");
 		}
 	}
 
-	
-	
 	// =========================
 	// FORM UI
 	// =========================
 
 	private String getForm(StudentModel s) {
-
 		return
 		"<!DOCTYPE html>"
 		+ "<html lang='en'>"
@@ -234,101 +120,30 @@ public class UpdateStudentServlet extends HttpServlet {
 		+ "  <a href='viewStudents' class='btn btn-outline-secondary btn-sm fw-semibold'><i class='bi bi-arrow-left me-1'></i>Back</a>"
 		+ "</div>"
 		+ "<form method='post' action='updateStudent'>"
-
-		
-		
-		// Hidden ID
-
 		+ "<input type='hidden' name='id' value='" + s.getStudentId() + "'/>"
-
-		
-		
-		// Name
-
 		+ "<div class='mb-3'>"
-
 		+ "<label class='form-label'>Student Name</label>"
-
-		+ "<input type='text' class='form-control' "
-
-		+ "name='name' value='" + s.getStudentName() + "' required>"
-
+		+ "<input type='text' class='form-control' name='name' value='" + s.getStudentName() + "' required>"
 		+ "</div>"
-
-		
-		
-		// Email
-
 		+ "<div class='mb-3'>"
-
 		+ "<label class='form-label'>Email</label>"
-
-		+ "<input type='email' class='form-control' "
-
-		+ "name='email' value='" + s.getEmail() + "' required>"
-
+		+ "<input type='email' class='form-control' name='email' value='" + s.getEmail() + "' required>"
 		+ "</div>"
-
-		
-		
-		// Course
-
 		+ "<div class='mb-3'>"
-
 		+ "<label class='form-label'>Course</label>"
-
-		+ "<input type='text' class='form-control' "
-
-		+ "name='course' value='" + s.getCourse() + "' required>"
-
+		+ "<input type='text' class='form-control' name='course' value='" + s.getCourse() + "' required>"
 		+ "</div>"
-
-		
-		
-		// Mobile
-
 		+ "<div class='mb-3'>"
-
 		+ "<label class='form-label'>Mobile</label>"
-
-		+ "<input type='text' class='form-control' "
-
-		+ "name='mobile' value='" + s.getMobile() + "' required>"
-
+		+ "<input type='text' class='form-control' name='mobile' value='" + s.getMobile() + "' required>"
 		+ "</div>"
-
-		
-		
-		// Buttons
-
 		+ "<div class='d-grid gap-2'>"
-
-		+ "<button type='submit' class='btn btn-update'>"
-
-		+ "Update Student"
-
-		+ "</button>"
-
-		
-		
-		+ "<a href='viewStudents' class='btn btn-secondary'>"
-
-		+ "Back"
-
-		+ "</a>"
-
+		+ "<button type='submit' class='btn btn-update'>Update Student</button>"
+		+ "<a href='viewStudents' class='btn btn-secondary'>Back</a>"
 		+ "</div>"
-
-		
-		
 		+ "</form>"
-
 		+ "</div>"
-
 		+ "</body>"
-
 		+ "</html>";
 	}
 }
-
-

@@ -17,13 +17,16 @@ public class DeleteSubjectServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		SubjectRepository repo = new SubjectRepository();
-		repo.deleteSubject(id);
+		boolean status = repo.deleteSubject(id);
 
-		response.sendRedirect("viewSubject");
+		if (status) {
+			response.sendRedirect("viewSubject?msg=deleted");
+		} else {
+			response.sendRedirect("viewSubject?msg=delete_error");
 		}
+	}
 		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

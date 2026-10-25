@@ -30,14 +30,13 @@ public class UpdateExamActionController extends HttpServlet {
 		boolean status = repo.updateExam(model);
 
 		if (status) {
-			response.sendRedirect("viewExam");
+			response.sendRedirect("viewExam?msg=updated");
 		} else {
-			response.getWriter().println("<h3>Update Failed</h3>");
+			response.sendRedirect("viewExam?msg=update_error");
 		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

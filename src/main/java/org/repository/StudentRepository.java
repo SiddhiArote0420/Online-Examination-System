@@ -1,5 +1,6 @@
 package org.repository;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import org.model.StudentModel;
 
@@ -94,6 +95,10 @@ public class StudentRepository extends DBConnection {
 	public boolean deleteStudent(int id) {
 
 		try {
+			try (PreparedStatement ps1 = conn.prepareStatement("delete from result where student_id=?")) {
+				ps1.setInt(1, id);
+				ps1.executeUpdate();
+			}
 
 			stmt = conn.prepareStatement(
 			"delete from students where student_id=?");
@@ -143,7 +148,7 @@ public class StudentRepository extends DBConnection {
 		}
 
 		return s;
-		}
+	}
 	
 	public boolean updateStudent(int id, String name, String email, String course, String mobile) {
 
@@ -166,7 +171,7 @@ public class StudentRepository extends DBConnection {
 		}
 
 		return false;
-		}
+	}
 	
 	
 	

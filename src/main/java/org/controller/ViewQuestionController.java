@@ -23,6 +23,7 @@ public class ViewQuestionController extends HttpServlet {
 
         QuestionService service = new QuestionService();
         List<QuestionModel> list = service.getAllQuestions();
+        String msg = request.getParameter("msg");
 
         out.println("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>");
         out.println("<link href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap' rel='stylesheet'>");
@@ -40,10 +41,24 @@ public class ViewQuestionController extends HttpServlet {
         out.println(".page-btn:disabled{opacity:0.5;cursor:not-allowed;}");
         out.println(".toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}");
         out.println(".search-box{width:210px;border-radius:8px;}");
+        out.println(".status-banner{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:10px;margin-bottom:18px;font-size:14px;font-weight:600;transition:opacity 0.3s ease;}");
+        out.println(".status-success{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;}");
+        out.println(".status-error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;}");
         out.println("@media(max-width:576px){body{padding:12px;}.panel-card{padding:16px;border-radius:12px;}.toolbar-right{width:100%;}.search-box{flex:1;min-width:140px;}}");
         out.println("</style></head><body>");
 
         out.println("<div class='panel-card'>");
+
+        if ("updated".equals(msg)) {
+            out.println("  <div id='statusAlert' class='status-banner status-success'><span><i class='bi bi-check-circle-fill me-2'></i>Question updated successfully!</span><button type='button' class='btn-close btn-sm' onclick=\"this.parentElement.remove()\"></button></div>");
+        } else if ("deleted".equals(msg)) {
+            out.println("  <div id='statusAlert' class='status-banner status-success'><span><i class='bi bi-check-circle-fill me-2'></i>Question deleted successfully!</span><button type='button' class='btn-close btn-sm' onclick=\"this.parentElement.remove()\"></button></div>");
+        } else if ("update_error".equals(msg)) {
+            out.println("  <div id='statusAlert' class='status-banner status-error'><span><i class='bi bi-exclamation-triangle-fill me-2'></i>Failed to update question. Please try again.</span><button type='button' class='btn-close btn-sm' onclick=\"this.parentElement.remove()\"></button></div>");
+        } else if ("delete_error".equals(msg)) {
+            out.println("  <div id='statusAlert' class='status-banner status-error'><span><i class='bi bi-exclamation-triangle-fill me-2'></i>Failed to delete question. Please try again.</span><button type='button' class='btn-close btn-sm' onclick=\"this.parentElement.remove()\"></button></div>");
+        }
+
         out.println("  <div class='d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4'>");
         out.println("    <div><h4 class='fw-bold m-0'><i class='bi bi-patch-question-fill text-primary me-2'></i>Questions List</h4><span class='text-muted small'>Total Questions in Bank: " + list.size() + "</span></div>");
         out.println("    <div class='toolbar-right'>");
@@ -81,6 +96,11 @@ public class ViewQuestionController extends HttpServlet {
         out.println("</div>");
 
         out.println("<script>");
+        out.println("const alertEl = document.getElementById('statusAlert');");
+        out.println("if(alertEl){");
+        out.println("  if(window.history.replaceState){ window.history.replaceState(null, '', window.location.pathname); }");
+        out.println("  setTimeout(() => { alertEl.style.opacity = '0'; setTimeout(() => alertEl.remove(), 300); }, 3500);");
+        out.println("}");
         out.println("const rowsPerPage = 5; let currentPage = 1;");
         out.println("const allRows = Array.from(document.querySelectorAll('#tableBody tr'));");
         out.println("let filteredRows = [...allRows];");
