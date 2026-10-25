@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <style>
 :root {
-    --sidebar-bg: #0f172a;
+    --nav-bg: #0f172a;
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
     --bg-body: #f1f5f9;
@@ -26,60 +26,51 @@ body {
     overflow-x: hidden;
 }
 
-/* SIDEBAR */
-.sidebar {
-    width: 260px;
-    height: 100vh;
-    background: var(--sidebar-bg);
-    position: fixed;
+/* TOP NAVBAR (Horizontal on Desktop, Hamburger ☰ in Top-Right on Mobile) */
+.dashboard-navbar {
+    background: var(--nav-bg);
+    color: #fff;
+    position: sticky;
     top: 0;
-    left: 0;
-    padding: 22px 16px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 8px 0 30px rgba(15, 23, 42, 0.15);
+    z-index: 1050;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.18);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-.sidebar-close-btn {
-    display: none;
-    margin-left: auto;
-    background: rgba(255, 255, 255, 0.08);
-    border: none;
-    color: #cbd5e1;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+.nav-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
 }
 .brand-box {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 12px 22px 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 20px;
+    text-decoration: none;
+    cursor: pointer;
 }
 .brand-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 20px;
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.38);
+    font-size: 19px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.38);
 }
 .brand-title {
     color: #fff;
     font-weight: 800;
     margin: 0;
-    font-size: 19px;
+    font-size: 18.5px;
+    line-height: 1.1;
 }
 .brand-title span {
     color: #60a5fa;
@@ -89,36 +80,35 @@ body {
     font-size: 11px;
     color: #94a3b8;
 }
-.nav-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #64748b;
-    padding: 6px 14px;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-}
-.nav-item-link {
+.nav-menu {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 15px;
-    border-radius: 11px;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.nav-item-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 10px;
     color: #cbd5e1;
     text-decoration: none;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 600;
-    margin-bottom: 6px;
-    transition: all 0.22s ease;
+    transition: all 0.2s ease;
     cursor: pointer;
+    white-space: nowrap;
 }
 .nav-item-link i {
-    font-size: 18px;
+    font-size: 16px;
     color: #94a3b8;
-    transition: color 0.22s ease;
+    transition: color 0.2s ease;
 }
 .nav-item-link:hover {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
 }
 .nav-item-link:hover i {
@@ -127,46 +117,61 @@ body {
 .nav-item-link.active {
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: #fff;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 .nav-item-link.active i {
     color: #fff;
 }
-.sidebar-footer {
-    margin-top: auto;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
 .logout-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 11px 16px;
+    gap: 8px;
+    padding: 10px 15px;
     border-radius: 10px;
-    background: rgba(239, 68, 68, 0.14);
+    background: rgba(239, 68, 68, 0.16);
     color: #f87171;
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
     transition: 0.2s;
+    white-space: nowrap;
+    margin-left: 4px;
 }
 .logout-link:hover {
     background: #ef4444;
     color: #fff;
 }
+.hamburger-btn {
+    display: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    font-size: 22px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    line-height: 1;
+}
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
 
 /* MAIN CONTENT */
 .main {
-    margin-left: 260px;
-    min-height: 100vh;
-    padding: 20px 28px;
+    max-width: 1360px;
+    margin: 0 auto;
+    min-height: calc(100vh - 68px);
+    padding: 22px 24px;
     display: flex;
     flex-direction: column;
 }
 .topbar {
     background: #fff;
-    padding: 16px 24px;
+    padding: 14px 22px;
     border-radius: 16px;
     display: flex;
     justify-content: space-between;
@@ -176,7 +181,7 @@ body {
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
 }
 .breadcrumb-tag {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
     color: #2563eb;
     text-transform: uppercase;
@@ -185,7 +190,7 @@ body {
 .page-title {
     margin: 2px 0 0 0;
     font-weight: 800;
-    font-size: 21px;
+    font-size: 20px;
     color: #0f172a;
 }
 .profile-chip {
@@ -296,63 +301,56 @@ body {
     border: 1px solid rgba(226, 232, 240, 0.8);
     box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
     overflow: hidden;
-    min-height: calc(100vh - 135px);
+    min-height: calc(100vh - 175px);
 }
 #contentFrame {
     width: 100%;
     flex: 1;
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 180px);
     border: none;
     background: #f8fafc;
 }
-/* MOBILE OVERLAY & TOGGLE */
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.55);
-    backdrop-filter: blur(2px);
-    z-index: 999;
-}
-.sidebar-overlay.show {
-    display: block;
-}
-.menu-btn-mobile {
-    display: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
-    color: #0f172a;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
 
+/* MOBILE RESPONSIVE MEDIA QUERY */
 @media (max-width: 992px) {
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .sidebar.open {
-        transform: translateX(0);
-    }
-    .sidebar-close-btn {
+    .hamburger-btn {
         display: inline-flex;
     }
-    .menu-btn-mobile {
-        display: inline-flex;
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0f172a;
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.32s ease, opacity 0.25s ease, padding 0.25s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.35);
+    }
+    .nav-menu.open {
+        max-height: 520px;
+        opacity: 1;
+        padding: 14px 20px 18px 20px;
+    }
+    .nav-item-link,
+    .logout-link {
+        width: 100%;
+        margin-left: 0;
+        padding: 12px 16px;
+    }
+    .logout-link {
+        justify-content: center;
+        margin-top: 4px;
     }
     .main {
-        margin-left: 0;
-        padding: 14px;
-    }
-    .topbar {
-        padding: 12px 16px;
-        margin-bottom: 16px;
+        padding: 16px;
     }
     .hero-card {
         flex-direction: column;
@@ -365,12 +363,16 @@ body {
 }
 
 @media (max-width: 576px) {
+    .nav-container {
+        padding: 10px 16px;
+    }
     .main {
         padding: 10px;
     }
     .topbar {
-        padding: 10px 12px;
+        padding: 10px 14px;
         border-radius: 12px;
+        margin-bottom: 14px;
     }
     .profile-chip {
         padding: 5px;
@@ -400,84 +402,76 @@ body {
         border-radius: 14px;
     }
     .workspace-box {
-        min-height: calc(100vh - 95px);
+        min-height: calc(100vh - 140px);
         border-radius: 14px;
     }
     #contentFrame {
-        min-height: calc(100vh - 100px);
+        min-height: calc(100vh - 145px);
     }
 }
 </style>
 </head>
 <body>
 
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-<!-- SIDEBAR: One Single Button Per Module -->
-<aside class="sidebar" id="sidebar">
-    <div class="brand-box">
-        <div class="brand-icon"><i class="bi bi-mortarboard-fill"></i></div>
-        <div>
-            <h5 class="brand-title">Exam<span>Pro</span></h5>
-            <span class="brand-sub">Admin Portal</span>
+<!-- TOP RESPONSIVE NAVBAR WITH HAMBURGER (☰) IN TOP RIGHT -->
+<nav class="dashboard-navbar">
+    <div class="nav-container">
+        <div class="brand-box" onclick="showOverview()">
+            <div class="brand-icon"><i class="bi bi-mortarboard-fill"></i></div>
+            <div>
+                <h5 class="brand-title">Exam<span>Pro</span></h5>
+                <span class="brand-sub">Admin Portal</span>
+            </div>
         </div>
-        <button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close Menu">
-            <i class="bi bi-x-lg"></i>
-        </button>
+
+        <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Toggle Navigation">&#9776;</button>
+
+        <div class="nav-menu" id="navMenu">
+            <a class="nav-item-link active" id="nav-overview" onclick="showOverview()">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a class="nav-item-link" id="nav-students" onclick="openModule(this, 'viewStudents', 'Students Management', 'Admin Portal / Students')">
+                <i class="bi bi-people-fill"></i>
+                <span>Students</span>
+            </a>
+
+            <a class="nav-item-link" id="nav-subjects" onclick="openModule(this, 'viewSubject', 'Subjects Management', 'Admin Portal / Subjects')">
+                <i class="bi bi-book-half"></i>
+                <span>Subjects</span>
+            </a>
+
+            <a class="nav-item-link" id="nav-exams" onclick="openModule(this, 'viewExam', 'Examinations Management', 'Admin Portal / Exams')">
+                <i class="bi bi-journal-text"></i>
+                <span>Exams</span>
+            </a>
+
+            <a class="nav-item-link" id="nav-questions" onclick="openModule(this, 'viewQuestions', 'Questions Management', 'Admin Portal / Questions')">
+                <i class="bi bi-patch-question-fill"></i>
+                <span>Questions</span>
+            </a>
+
+            <a class="nav-item-link" id="nav-results" onclick="openModule(this, 'viewResults', 'Examination Results', 'Admin Portal / Results')">
+                <i class="bi bi-bar-chart-fill"></i>
+                <span>Results</span>
+            </a>
+
+            <a href="Home.html" class="logout-link" onclick="closeMenu()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
     </div>
-
-    <div class="nav-label">MAIN MENU</div>
-
-    <a class="nav-item-link active" id="nav-overview" onclick="showOverview()">
-        <i class="bi bi-grid-1x2-fill"></i>
-        <span>Dashboard</span>
-    </a>
-
-    <a class="nav-item-link" id="nav-students" onclick="openModule(this, 'viewStudents', 'Students Management', 'Admin Portal / Students')">
-        <i class="bi bi-people-fill"></i>
-        <span>Students</span>
-    </a>
-
-    <a class="nav-item-link" id="nav-subjects" onclick="openModule(this, 'viewSubject', 'Subjects Management', 'Admin Portal / Subjects')">
-        <i class="bi bi-book-half"></i>
-        <span>Subjects</span>
-    </a>
-
-    <a class="nav-item-link" id="nav-exams" onclick="openModule(this, 'viewExam', 'Examinations Management', 'Admin Portal / Exams')">
-        <i class="bi bi-journal-text"></i>
-        <span>Exams</span>
-    </a>
-
-    <a class="nav-item-link" id="nav-questions" onclick="openModule(this, 'viewQuestions', 'Questions Management', 'Admin Portal / Questions')">
-        <i class="bi bi-patch-question-fill"></i>
-        <span>Questions</span>
-    </a>
-
-    <a class="nav-item-link" id="nav-results" onclick="openModule(this, 'viewResults', 'Examination Results', 'Admin Portal / Results')">
-        <i class="bi bi-bar-chart-fill"></i>
-        <span>Results</span>
-    </a>
-
-    <div class="sidebar-footer">
-        <a href="Home.html" class="logout-link">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Logout</span>
-        </a>
-    </div>
-</aside>
+</nav>
 
 <!-- MAIN WORKSPACE -->
 <div class="main">
     <!-- TOPBAR -->
     <header class="topbar">
-        <div class="d-flex align-items-center gap-3">
-            <button class="menu-btn-mobile" onclick="toggleSidebar()" aria-label="Toggle Menu">
-                <i class="bi bi-list"></i>
-            </button>
-            <div>
-                <span class="breadcrumb-tag" id="topBreadcrumb">Admin Portal / Overview</span>
-                <h4 class="page-title" id="topTitle">Admin Dashboard</h4>
-            </div>
+        <div>
+            <span class="breadcrumb-tag" id="topBreadcrumb">Admin Portal / Overview</span>
+            <h4 class="page-title" id="topTitle">Admin Dashboard</h4>
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="profile-chip">
@@ -498,7 +492,7 @@ body {
                     <i class="bi bi-shield-check me-1"></i> Admin Control Center
                 </span>
                 <h2>Welcome back, Administrator!</h2>
-                <p>Select any module from the left menu to view records, add new entries from the top-right corner, or update and delete items directly.</p>
+                <p>Select any module from the navigation menu above to view records, add new entries from the top-right corner, or update and delete items directly.</p>
             </div>
             <div class="hero-action-wrap">
                 <button onclick="openModule(document.getElementById('nav-exams'), 'viewExam', 'Examinations Management', 'Admin Portal / Exams')" class="btn btn-light fw-bold px-4 py-2 rounded-3 shadow-sm" style="color:#1e3a8a;white-space:nowrap;">
@@ -577,18 +571,22 @@ body {
 </div>
 
 <script>
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebarOverlay').classList.toggle('show');
+function toggleMenu() {
+    const menu = document.getElementById('navMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    menu.classList.toggle('open');
+    btn.innerHTML = menu.classList.contains('open') ? '&times;' : '&#9776;';
 }
 
-function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sidebarOverlay').classList.remove('show');
+function closeMenu() {
+    const menu = document.getElementById('navMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    menu.classList.remove('open');
+    if (btn) btn.innerHTML = '&#9776;';
 }
 
 function clearNav() {
-    document.querySelectorAll('.sidebar .nav-item-link').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.nav-menu .nav-item-link').forEach(a => a.classList.remove('active'));
 }
 
 function openModule(el, url, title, crumb) {
@@ -599,7 +597,7 @@ function openModule(el, url, title, crumb) {
     document.getElementById('sectionOverview').classList.add('d-none');
     document.getElementById('sectionWorkspace').classList.remove('d-none');
     document.getElementById('contentFrame').src = url;
-    closeSidebar();
+    closeMenu();
 }
 
 function showOverview() {
@@ -609,7 +607,7 @@ function showOverview() {
     document.getElementById('topBreadcrumb').textContent = 'Admin Portal / Overview';
     document.getElementById('sectionWorkspace').classList.add('d-none');
     document.getElementById('sectionOverview').classList.remove('d-none');
-    closeSidebar();
+    closeMenu();
 }
 </script>
 
