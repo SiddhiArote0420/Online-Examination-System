@@ -57,7 +57,8 @@ public class StudentDashboardController extends HttpServlet {
         out.println(":root{--sidebar-bg:#0f172a;--primary:#2563eb;--bg-body:#f1f5f9;--text-main:#0f172a;}");
         out.println("*{box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif;}");
         out.println("body{background:var(--bg-body);color:var(--text-main);margin:0;overflow-x:hidden;}");
-        out.println(".sidebar{width:260px;height:100vh;background:var(--sidebar-bg);position:fixed;top:0;left:0;padding:22px 16px;display:flex;flex-direction:column;z-index:1000;box-shadow:8px 0 30px rgba(15,23,42,0.15);}");
+        out.println(".sidebar{width:260px;height:100vh;background:var(--sidebar-bg);position:fixed;top:0;left:0;padding:22px 16px;display:flex;flex-direction:column;overflow-y:auto;z-index:1000;box-shadow:8px 0 30px rgba(15,23,42,0.15);}");
+        out.println(".sidebar-close-btn{display:none;margin-left:auto;background:rgba(255,255,255,0.08);border:none;color:#cbd5e1;width:34px;height:34px;border-radius:8px;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}");
         out.println(".brand-box{display:flex;align-items:center;gap:12px;padding:8px 12px 22px 12px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:20px;}");
         out.println(".brand-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;box-shadow:0 6px 16px rgba(37,99,235,0.35);}");
         out.println(".brand-title{color:#fff;font-weight:800;margin:0;font-size:19px;}");
@@ -97,15 +98,45 @@ public class StudentDashboardController extends HttpServlet {
         out.println(".profile-avatar-lg{width:84px;height:84px;border-radius:22px;background:#0f172a;color:#fff;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;border:4px solid #fff;margin-top:-42px;box-shadow:0 6px 16px rgba(0,0,0,0.12);}");
         out.println(".info-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;}");
         out.println(".info-label{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;}");
-        out.println(".info-val{font-size:15px;font-weight:700;color:#0f172a;margin-top:2px;}");
+        out.println(".info-val{font-size:15px;font-weight:700;color:#0f172a;margin-top:2px;word-break:break-word;}");
+        out.println(".sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(2px);z-index:999;}");
+        out.println(".sidebar-overlay.show{display:block;}");
+        out.println(".menu-btn-mobile{display:none;width:40px;height:40px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;color:#0f172a;align-items:center;justify-content:center;font-size:20px;cursor:pointer;flex-shrink:0;}");
+        out.println("@media(max-width:992px){");
+        out.println("  .sidebar{transform:translateX(-100%);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);}");
+        out.println("  .sidebar.open{transform:translateX(0);}");
+        out.println("  .sidebar-close-btn{display:inline-flex;}");
+        out.println("  .menu-btn-mobile{display:inline-flex;}");
+        out.println("  .main{margin-left:0;padding:14px;}");
+        out.println("  .topbar{padding:12px 16px;margin-bottom:16px;}");
+        out.println("  .hero-card{flex-direction:column;align-items:flex-start;padding:22px 20px;}");
+        out.println("  .hero-card h2{font-size:21px;}");
+        out.println("}");
+        out.println("@media(max-width:576px){");
+        out.println("  .main{padding:10px;}");
+        out.println("  .topbar{padding:10px 12px;border-radius:12px;}");
+        out.println("  .profile-chip{padding:5px;}");
+        out.println("  .page-title{font-size:16.5px;}");
+        out.println("  .breadcrumb-tag{font-size:10px;}");
+        out.println("  .hero-card{padding:18px 16px;border-radius:16px;}");
+        out.println("  .hero-card h2{font-size:19px;}");
+        out.println("  .hero-card p{font-size:13.5px;}");
+        out.println("  .hero-action-wrap,.hero-action-wrap button{width:100%;}");
+        out.println("  .stat-card,.action-card{padding:16px;border-radius:14px;}");
+        out.println("  .workspace-box{min-height:calc(100vh - 95px);border-radius:14px;}");
+        out.println("  #studentFrame{min-height:calc(100vh - 100px);}");
+        out.println("}");
         out.println("</style>");
         out.println("</head><body>");
 
+        out.println("<div class='sidebar-overlay' id='sidebarOverlay' onclick='closeSidebar()'></div>");
+
         // SIDEBAR
-        out.println("<aside class='sidebar'>");
+        out.println("<aside class='sidebar' id='sidebar'>");
         out.println("  <div class='brand-box'>");
         out.println("    <div class='brand-icon'><i class='bi bi-mortarboard-fill'></i></div>");
         out.println("    <div><h5 class='brand-title'>Exam<span>Pro</span></h5><span class='brand-sub'>Student Portal</span></div>");
+        out.println("    <button class='sidebar-close-btn' onclick='closeSidebar()' aria-label='Close Menu'><i class='bi bi-x-lg'></i></button>");
         out.println("  </div>");
         out.println("  <div class='nav-label'>MAIN MENU</div>");
         out.println("  <a class='nav-item-link active' id='menu-overview' onclick='showSection(\"overview\")'><i class='bi bi-grid-1x2-fill'></i><span>Dashboard</span></a>");
@@ -122,9 +153,12 @@ public class StudentDashboardController extends HttpServlet {
 
         // TOPBAR
         out.println("  <header class='topbar'>");
-        out.println("    <div>");
-        out.println("      <span class='breadcrumb-tag' id='topBreadcrumb'>Student Portal / Overview</span>");
-        out.println("      <h4 class='page-title' id='topTitle'>Welcome, " + studentName + "!</h4>");
+        out.println("    <div class='d-flex align-items-center gap-3'>");
+        out.println("      <button class='menu-btn-mobile' onclick='toggleSidebar()' aria-label='Toggle Menu'><i class='bi bi-list'></i></button>");
+        out.println("      <div>");
+        out.println("        <span class='breadcrumb-tag' id='topBreadcrumb'>Student Portal / Overview</span>");
+        out.println("        <h4 class='page-title' id='topTitle'>Welcome, " + studentName + "!</h4>");
+        out.println("      </div>");
         out.println("    </div>");
         out.println("    <div class='profile-chip' onclick='showSection(\"profile\")'>");
         out.println("      <div class='avatar'>" + initial + "</div>");
@@ -143,26 +177,26 @@ public class StudentDashboardController extends HttpServlet {
         out.println("        <h2>Ready for your next assessment, " + studentName + "?</h2>");
         out.println("        <p>Track your assigned examinations, attempt pending tests in real time, and review your detailed scorecards without leaving this dashboard.</p>");
         out.println("      </div>");
-        out.println("      <div>");
+        out.println("      <div class='hero-action-wrap'>");
         out.println("        <button onclick='openFrame(document.getElementById(\"menu-exams\"), \"studentExamList\", \"Available Exams\", \"Student Portal / Exams\")' class='btn btn-light fw-bold px-4 py-2 rounded-3 shadow-sm' style='color:#1e3a8a;white-space:nowrap;'><i class='bi bi-play-circle-fill me-1'></i> Take an Exam</button>");
         out.println("      </div>");
         out.println("    </div>");
 
         // STATS
-        out.println("    <div class='row g-4 mb-4'>");
-        out.println("      <div class='col-md-4'>");
+        out.println("    <div class='row g-3 g-md-4 mb-4'>");
+        out.println("      <div class='col-lg-4 col-sm-6'>");
         out.println("        <div class='stat-card'>");
         out.println("          <div class='stat-icon' style='background:#eff6ff;color:#2563eb;'><i class='bi bi-journal-bookmark-fill'></i></div>");
         out.println("          <div><div class='stat-label'>Total Assigned Exams</div><h3 class='stat-value'>" + total + "</h3></div>");
         out.println("        </div>");
         out.println("      </div>");
-        out.println("      <div class='col-md-4'>");
+        out.println("      <div class='col-lg-4 col-sm-6'>");
         out.println("        <div class='stat-card'>");
         out.println("          <div class='stat-icon' style='background:#ecfdf5;color:#059669;'><i class='bi bi-check2-circle'></i></div>");
         out.println("          <div><div class='stat-label'>Completed Exams</div><h3 class='stat-value'>" + completed + "</h3></div>");
         out.println("        </div>");
         out.println("      </div>");
-        out.println("      <div class='col-md-4'>");
+        out.println("      <div class='col-lg-4 col-sm-12'>");
         out.println("        <div class='stat-card'>");
         out.println("          <div class='stat-icon' style='background:#fffbeb;color:#d97706;'><i class='bi bi-hourglass-split'></i></div>");
         out.println("          <div><div class='stat-label'>Pending Exams</div><h3 class='stat-value'>" + pending + "</h3></div>");
@@ -222,6 +256,8 @@ public class StudentDashboardController extends HttpServlet {
         out.println("</div>"); // end main
 
         out.println("<script>");
+        out.println("function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show');}");
+        out.println("function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('show');}");
         out.println("function clearNav(){document.querySelectorAll('.sidebar .nav-item-link').forEach(a=>a.classList.remove('active'));}");
         out.println("function openFrame(el, url, title, crumb){");
         out.println("  clearNav();");
@@ -232,6 +268,7 @@ public class StudentDashboardController extends HttpServlet {
         out.println("  document.getElementById('sectionProfile').classList.add('d-none');");
         out.println("  document.getElementById('sectionWorkspace').classList.remove('d-none');");
         out.println("  document.getElementById('studentFrame').src = url;");
+        out.println("  closeSidebar();");
         out.println("}");
         out.println("function showSection(sec){");
         out.println("  clearNav();");
@@ -249,6 +286,7 @@ public class StudentDashboardController extends HttpServlet {
         out.println("    document.getElementById('topBreadcrumb').textContent = 'Student Portal / Overview';");
         out.println("    document.getElementById('sectionOverview').classList.remove('d-none');");
         out.println("  }");
+        out.println("  closeSidebar();");
         out.println("}");
         out.println("</script>");
 

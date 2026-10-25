@@ -23,27 +23,29 @@ public class ViewResultController extends HttpServlet {
         ResultService service = new ResultService();
         ArrayList<ResultModel> list = service.getAllResults();
 
-        out.println("<!DOCTYPE html><html><head>");
+        out.println("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>");
         out.println("<link href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap' rel='stylesheet'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'>");
         out.println("<style>");
-        out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:24px;}");
+        out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:24px;color:#0f172a;}");
         out.println(".panel-card{background:#fff;padding:24px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 6px 20px rgba(15,23,42,0.04);}");
-        out.println(".table thead th{background:#f1f5f9;color:#475569;font-size:12.5px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:none;padding:12px 14px;}");
+        out.println(".table thead th{background:#f1f5f9;color:#475569;font-size:12.5px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:none;padding:12px 14px;white-space:nowrap;}");
         out.println(".table tbody td{vertical-align:middle;padding:12px 14px;font-size:14px;}");
-        out.println(".badge-pass{background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;padding:5px 12px;border-radius:999px;font-weight:700;font-size:12px;}");
-        out.println(".badge-fail{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;padding:5px 12px;border-radius:999px;font-weight:700;font-size:12px;}");
+        out.println(".badge-pass{background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;padding:5px 12px;border-radius:999px;font-weight:700;font-size:12px;white-space:nowrap;}");
+        out.println(".badge-fail{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;padding:5px 12px;border-radius:999px;font-weight:700;font-size:12px;white-space:nowrap;}");
         out.println(".page-btn{border:1px solid #cbd5e1;background:#fff;color:#334155;padding:5px 12px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:0.2s;}");
         out.println(".page-btn:hover:not(:disabled){background:#eff6ff;border-color:#93c5fd;color:#2563eb;}");
         out.println(".page-btn.active{background:#2563eb;border-color:#2563eb;color:#fff;}");
         out.println(".page-btn:disabled{opacity:0.5;cursor:not-allowed;}");
+        out.println(".search-box{width:220px;border-radius:8px;}");
+        out.println("@media(max-width:576px){body{padding:12px;}.panel-card{padding:16px;border-radius:12px;}.search-box{width:100%;}}");
         out.println("</style></head><body>");
 
         out.println("<div class='panel-card'>");
         out.println("  <div class='d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4'>");
         out.println("    <div><h4 class='fw-bold m-0'><i class='bi bi-bar-chart-fill text-primary me-2'></i>Student Examination Results</h4><span class='text-muted small'>Total Submissions: " + list.size() + "</span></div>");
-        out.println("    <div><input type='text' id='searchInput' onkeyup='filterTable()' class='form-control form-control-sm' placeholder='Search student or exam...' style='width:220px;border-radius:8px;'></div>");
+        out.println("    <div class='w-100 w-sm-auto' style='max-width:100%;'><input type='text' id='searchInput' onkeyup='filterTable()' class='form-control form-control-sm search-box' placeholder='Search student or exam...'></div>");
         out.println("  </div>");
 
         out.println("  <div class='table-responsive'>");

@@ -38,16 +38,17 @@ public class ExamListController extends HttpServlet {
         List<ExamModel> list = service.getExamWithStatus(studentId);
 
         // 3. UI START
-        out.println("<html>");
-        out.println("<head>");
+        out.println("<!DOCTYPE html><html lang='en'>");
+        out.println("<head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'>");
         out.println("</head>");
 
-        out.println("<body class='container mt-4'>");
+        out.println("<body class='container mt-4 px-3'>");
 
         out.println("<h2 class='text-center mb-4'>Available Exams</h2>");
 
-        out.println("<table class='table table-bordered table-hover text-center'>");
+        out.println("<div class='table-responsive'>");
+        out.println("<table class='table table-bordered table-hover text-center align-middle'>");
         out.println("<tr class='table-dark'><th>Exam Name</th><th>Status</th><th>Action</th></tr>");
 
         // 4. LOOP DATA
@@ -69,7 +70,7 @@ public class ExamListController extends HttpServlet {
             out.println("</tr>");
         }
 
-        out.println("</table>");
+        out.println("</table></div>");
         out.println("</body>");
         out.println("</html>");
     }

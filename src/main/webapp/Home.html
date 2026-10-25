@@ -496,7 +496,7 @@ body {
         font-size: 38px;
     }
     .hero-section {
-        padding: 50px 0;
+        padding: 50px 0 60px 0;
         text-align: center;
     }
     .hero-desc {
@@ -506,6 +506,74 @@ body {
     .hero-cta-group,
     .hero-stats-row {
         justify-content: center;
+    }
+    .custom-navbar .navbar-collapse {
+        background: rgba(15, 23, 42, 0.98);
+        padding: 16px;
+        border-radius: 14px;
+        margin-top: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+}
+
+@media (max-width: 768px) {
+    .section-heading {
+        font-size: 28px;
+    }
+    .portals-section,
+    .features-section {
+        padding: 55px 0;
+    }
+    .portal-box {
+        padding: 26px 22px;
+    }
+    .floating-badge-top {
+        position: static;
+        margin-bottom: 12px;
+        justify-content: center;
+    }
+    .floating-badge-bottom {
+        position: static;
+        margin-top: 12px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .brand-text {
+        font-size: 18px;
+    }
+    .brand-wrap img {
+        width: 40px;
+        height: 40px;
+    }
+    .hero-title {
+        font-size: 30px;
+    }
+    .hero-desc {
+        font-size: 15px;
+    }
+    .hero-cta-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        justify-content: center;
+        width: 100%;
+    }
+    .hero-stats-row {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .custom-navbar .d-flex.gap-2 {
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-nav-outline,
+    .btn-nav-solid {
+        justify-content: center;
+        width: 100%;
     }
 }
 </style>

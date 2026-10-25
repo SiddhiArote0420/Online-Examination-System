@@ -20,15 +20,16 @@ public class AddSubjectServlet extends HttpServlet {
 
         String msg = request.getParameter("msg");
 
-        out.println("<!DOCTYPE html><html><head>");
+        out.println("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>");
         out.println("<link href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap' rel='stylesheet'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'>");
         out.println("<style>");
-        out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:30px;}");
+        out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:24px;color:#0f172a;}");
         out.println(".box{max-width:520px;margin:20px auto;background:white;padding:32px;border-radius:18px;border:1px solid #e2e8f0;box-shadow:0 10px 30px rgba(15,23,42,0.05);}");
         out.println(".btn-sub{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;font-weight:700;padding:11px;border-radius:10px;}");
         out.println(".btn-sub:hover{opacity:0.95;color:#fff;}");
+        out.println("@media(max-width:576px){body{padding:12px;}.box{padding:20px 16px;border-radius:14px;}}");
         out.println("</style></head><body>");
 
         out.println("<div class='box'>");

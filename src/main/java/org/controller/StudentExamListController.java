@@ -35,27 +35,30 @@ public class StudentExamListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        out.println("<!DOCTYPE html><html><head><title>Exam List</title>");
+        out.println("<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Exam List</title>");
         out.println("<link href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap' rel='stylesheet'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'>");
         out.println("<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css' rel='stylesheet'>");
         out.println("<style>");
-        out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:24px;}");
+        out.println("body{background:#f8fafc;font-family:'Plus Jakarta Sans',sans-serif;padding:24px;color:#0f172a;}");
         out.println(".table-box{background:#fff;padding:26px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 6px 20px rgba(15,23,42,0.04);}");
-        out.println(".table thead th{background:#f1f5f9;color:#475569;font-size:12.5px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:none;padding:12px 16px;}");
+        out.println(".table thead th{background:#f1f5f9;color:#475569;font-size:12.5px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:none;padding:12px 16px;white-space:nowrap;}");
         out.println(".table tbody td{vertical-align:middle;padding:14px 16px;font-size:14.5px;}");
         out.println(".page-btn{border:1px solid #cbd5e1;background:#fff;color:#334155;padding:5px 12px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:0.2s;}");
         out.println(".page-btn:hover:not(:disabled){background:#eff6ff;border-color:#93c5fd;color:#2563eb;}");
         out.println(".page-btn.active{background:#2563eb;border-color:#2563eb;color:#fff;}");
         out.println(".page-btn:disabled{opacity:0.5;cursor:not-allowed;}");
+        out.println(".search-box{width:210px;border-radius:8px;}");
+        out.println("@media(max-width:576px){body{padding:12px;}.table-box{padding:16px;border-radius:12px;}.search-box{width:100%;}}");
         out.println("</style></head><body>");
 
         out.println("<div class='table-box'>");
         out.println("  <div class='d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4'>");
         out.println("    <div><h4 class='fw-bold m-0'><i class='bi bi-journal-text text-primary me-2'></i>Available Assessments</h4><span class='text-muted small'>Select any pending exam below to begin</span></div>");
-        out.println("    <div><input type='text' id='searchInput' onkeyup='filterTable()' class='form-control form-control-sm' placeholder='Search exam...' style='width:200px;border-radius:8px;'></div>");
+        out.println("    <div><input type='text' id='searchInput' onkeyup='filterTable()' class='form-control form-control-sm search-box' placeholder='Search exam...'></div>");
         out.println("  </div>");
 
+        out.println("  <div class='table-responsive'>");
         out.println("  <table class='table table-hover align-middle mb-0'>");
         out.println("    <thead><tr><th>Examination Title</th><th>Status</th><th class='text-end'>Action</th></tr></thead>");
         out.println("    <tbody id='tableBody'>");
@@ -73,12 +76,12 @@ public class StudentExamListController extends HttpServlet {
             out.println("</tr>");
         }
 
-        out.println("    </tbody></table>");
+        out.println("    </tbody></table></div>");
 
         // PAGINATION BAR
-        out.println("  <div class='d-flex flex-wrap justify-content-between align-items-center mt-3 pt-3 border-top'>");
+        out.println("  <div class='d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3 pt-3 border-top'>");
         out.println("    <div class='text-muted small fw-semibold' id='pageInfo'></div>");
-        out.println("    <div class='d-flex align-items-center gap-1' id='paginationControls'></div>");
+        out.println("    <div class='d-flex flex-wrap align-items-center gap-1' id='paginationControls'></div>");
         out.println("  </div>");
 
         out.println("</div>");
